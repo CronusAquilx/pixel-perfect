@@ -20,7 +20,7 @@ function Leaderboard() {
   const { returnPct } = usePortfolio();
   const { username, badges } = useStore();
   const mult = period === "Weekly" ? 1 : period === "Monthly" ? 1.9 : 3.4;
-  let rows = LEADERS.map(([n, r, s, c]) => ({ name: n as string, ret: r * mult, sharpe: s, ch: c, you: false }));
+  let rows = LEADERS.map(([n, r, s, c]) => ({ name: n as string, ret: r * mult, sharpe: s as number, ch: c as number, you: false }));
   if (scope === "Friends") rows = rows.filter((r) => FRIENDS.includes(r.name));
   rows.push({ name: username, ret: returnPct, sharpe: +(returnPct / 4).toFixed(2), ch: Object.keys(badges).length, you: true });
   rows.sort((a, b) => b[metric] - a[metric]);
