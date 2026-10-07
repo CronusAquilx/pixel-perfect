@@ -70,8 +70,3 @@ export const TUTORIAL = [
   { n: 10, title: "Building a Strategy", lesson: "strategies" },
 ];
 
-export const LEADERS = [
-  ["quantfox", 18.42, 1.9, 14], ["stealthbull", 15.71, 1.6, 11], ["mira_trades", 13.04, 2.1, 17], ["deltaone", 11.3, 1.2, 9],
-  ["lowvolkid", 9.88, 2.4, 13], ["thetaqueen", 8.12, 1.4, 8], ["cashflowcal", 6.55, 1.7, 12], ["indexandchill", 5.2, 2.6, 15],
-  ["breakoutbo", 3.91, 0.8, 6], ["rangerider", 2.4, 1.1, 7],
-] as const;
