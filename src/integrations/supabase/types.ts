@@ -14,13 +14,88 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          avatar: string | null
+          badges_count: number
+          id: string
+          level: number
+          portfolio_value: number
+          return_pct: number
+          starting_balance: number
+          trades_count: number
+          tutorial_progress: number
+          updated_at: string
+          username: string
+          virtual_cash: number
+          xp: number
+        }
+        Insert: {
+          avatar?: string | null
+          badges_count?: number
+          id: string
+          level?: number
+          portfolio_value?: number
+          return_pct?: number
+          starting_balance?: number
+          trades_count?: number
+          tutorial_progress?: number
+          updated_at?: string
+          username: string
+          virtual_cash?: number
+          xp?: number
+        }
+        Update: {
+          avatar?: string | null
+          badges_count?: number
+          id?: string
+          level?: number
+          portfolio_value?: number
+          return_pct?: number
+          starting_balance?: number
+          trades_count?: number
+          tutorial_progress?: number
+          updated_at?: string
+          username?: string
+          virtual_cash?: number
+          xp?: number
+        }
+        Relationships: []
+      }
+      user_state: {
+        Row: {
+          state: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          state?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          state?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_leaderboard: {
+        Args: never
+        Returns: {
+          badges_count: number
+          is_me: boolean
+          level: number
+          return_pct: number
+          trades_count: number
+          username: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
