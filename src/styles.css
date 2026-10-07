@@ -139,3 +139,6 @@
 @keyframes flash { 0% { background: color-mix(in oklab, var(--gain) 25%, transparent); } 100% { background: transparent; } }
 @utility animate-rise { animation: rise 0.35s cubic-bezier(.2,.7,.2,1) both; }
 @utility animate-flash { animation: flash 0.9s ease-out; }
+
+@keyframes tourpulse { 0%,100% { outline-color: var(--gain); } 50% { outline-color: transparent; } }
+.tour-ring { outline: 2px solid var(--gain); outline-offset: 3px; animation: tourpulse 1.4s ease-in-out infinite; border-radius: var(--radius); position: relative; z-index: 40; }
