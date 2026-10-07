@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { AssetRow, PageHeader, Panel } from "@/components/ml/bits";
@@ -6,16 +6,10 @@ import { ASSETS, type Category } from "@/lib/market";
 import { seo } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/markets")({
+export const Route = createFileRoute("/markets/")({
   head: () => seo("Markets", "Explore simulated stocks, ETFs, crypto and meme coins."),
-  component: MarketsLayout,
+  component: Markets,
 });
-
-function MarketsLayout() {
-  const path = useRouterState({ select: (s) => s.location.pathname });
-  if (path !== "/markets" && path !== "/markets/") return <Outlet />;
-  return <Markets />;
-}
 
 const CATS: { id: Category | "all"; label: string }[] = [
   { id: "all", label: "All" }, { id: "stock", label: "Stocks" }, { id: "etf", label: "ETFs" }, { id: "crypto", label: "Crypto" }, { id: "meme", label: "Meme Coins" }, { id: "index", label: "Indices" },
