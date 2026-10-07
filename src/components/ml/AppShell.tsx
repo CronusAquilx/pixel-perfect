@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils";
 import { TradeDialog } from "./TradeDialog";
 import { Onboarding } from "./Onboarding";
 import { TourCoach } from "./TourCoach";
+import { AuthScreen } from "./AuthScreen";
+import { supabase } from "@/integrations/supabase/client";
+import { startSync, stopSync } from "@/lib/sync";
 
 export const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutGrid },
@@ -39,18 +42,31 @@ function Logo() {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
+  const [auth, setAuth] = useState<"loading" | "out" | "in">("loading");
   const onboarded = useStore((s) => s.onboarded);
   const theme = useStore((s) => s.theme);
   useEffect(() => {
     setHydrated(true);
     startTicker();
+    const handle = async (session: { user: { id: string; email?: string } } | null) => {
+      if (!session) { stopSync(); setAuth("out"); return; }
+      setAuth("loading");
+      await startSync(session.user.id, session.user.email?.split("@")[0] ?? "trader");
+      setAuth("in");
+    };
+    supabase.auth.getSession().then(({ data }) => handle(data.session));
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT") void handle(session);
+    });
+    return () => data.subscription.unsubscribe();
   }, []);
   useEffect(() => {
     document.documentElement.classList.toggle("light", theme === "light");
     document.documentElement.style.colorScheme = theme;
   }, [theme]);
 
-  if (!hydrated) return <div className="min-h-screen bg-background" />;
+  if (!hydrated || auth === "loading") return <div className="flex min-h-screen items-center justify-center bg-background"><span className="label-caps">Loading MARKETLAB…</span></div>;
+  if (auth === "out") return <AuthScreen />;
   if (!onboarded) return <Onboarding />;
 
   return (
