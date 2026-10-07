@@ -10,9 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChallengesRouteImport } from './routes/challenges'
+import { Route as CoachRouteImport } from './routes/coach'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as MemeRouteImport } from './routes/meme'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TradeRouteImport } from './routes/trade'
+import { Route as WatchlistRouteImport } from './routes/watchlist'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as LearnIdRouteImport } from './routes/learn.$id'
 import { Route as MarketsIndexRouteImport } from './routes/markets.index'
 import { Route as MarketsSymbolRouteImport } from './routes/markets.$symbol'
 
@@ -21,9 +31,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChallengesRoute = ChallengesRouteImport.update({
+  id: '/challenges',
+  path: '/challenges',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoachRoute = CoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MemeRoute = MemeRouteImport.update({
@@ -31,9 +56,44 @@ const MemeRoute = MemeRouteImport.update({
   path: '/meme',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TradeRoute = TradeRouteImport.update({
   id: '/trade',
   path: '/trade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchlistRoute = WatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/learn/',
+  path: '/learn/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIdRoute = LearnIdRouteImport.update({
+  id: '/learn/$id',
+  path: '/learn/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarketsIndexRoute = MarketsIndexRouteImport.update({
@@ -49,51 +109,132 @@ const MarketsSymbolRoute = MarketsSymbolRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
+  '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/meme': typeof MemeRoute
+  '/news': typeof NewsRoute
+  '/portfolio': typeof PortfolioRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
   '/trade': typeof TradeRoute
+  '/watchlist': typeof WatchlistRoute
+  '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
+  '/learn/': typeof LearnIndexRoute
   '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
+  '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/meme': typeof MemeRoute
+  '/news': typeof NewsRoute
+  '/portfolio': typeof PortfolioRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
   '/trade': typeof TradeRoute
+  '/watchlist': typeof WatchlistRoute
+  '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
+  '/learn': typeof LearnIndexRoute
   '/markets': typeof MarketsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
+  '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/meme': typeof MemeRoute
+  '/news': typeof NewsRoute
+  '/portfolio': typeof PortfolioRoute
+  '/profile': typeof ProfileRoute
+  '/settings': typeof SettingsRoute
   '/trade': typeof TradeRoute
+  '/watchlist': typeof WatchlistRoute
+  '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
+  '/learn/': typeof LearnIndexRoute
   '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/dashboard' | '/meme' | '/trade' | '/markets/$symbol' | '/markets/'
+    | '/'
+    | '/challenges'
+    | '/coach'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/meme'
+    | '/news'
+    | '/portfolio'
+    | '/profile'
+    | '/settings'
+    | '/trade'
+    | '/watchlist'
+    | '/learn/$id'
+    | '/markets/$symbol'
+    | '/learn/'
+    | '/markets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/meme' | '/trade' | '/markets/$symbol' | '/markets'
+  to:
+    | '/'
+    | '/challenges'
+    | '/coach'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/meme'
+    | '/news'
+    | '/portfolio'
+    | '/profile'
+    | '/settings'
+    | '/trade'
+    | '/watchlist'
+    | '/learn/$id'
+    | '/markets/$symbol'
+    | '/learn'
+    | '/markets'
   id:
     | '__root__'
     | '/'
+    | '/challenges'
+    | '/coach'
     | '/dashboard'
+    | '/leaderboard'
     | '/meme'
+    | '/news'
+    | '/portfolio'
+    | '/profile'
+    | '/settings'
     | '/trade'
+    | '/watchlist'
+    | '/learn/$id'
     | '/markets/$symbol'
+    | '/learn/'
     | '/markets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChallengesRoute: typeof ChallengesRoute
+  CoachRoute: typeof CoachRoute
   DashboardRoute: typeof DashboardRoute
+  LeaderboardRoute: typeof LeaderboardRoute
   MemeRoute: typeof MemeRoute
+  NewsRoute: typeof NewsRoute
+  PortfolioRoute: typeof PortfolioRoute
+  ProfileRoute: typeof ProfileRoute
+  SettingsRoute: typeof SettingsRoute
   TradeRoute: typeof TradeRoute
+  WatchlistRoute: typeof WatchlistRoute
+  LearnIdRoute: typeof LearnIdRoute
   MarketsSymbolRoute: typeof MarketsSymbolRoute
+  LearnIndexRoute: typeof LearnIndexRoute
   MarketsIndexRoute: typeof MarketsIndexRoute
 }
 
@@ -106,11 +247,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/challenges': {
+      id: '/challenges'
+      path: '/challenges'
+      fullPath: '/challenges'
+      preLoaderRoute: typeof ChallengesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coach': {
+      id: '/coach'
+      path: '/coach'
+      fullPath: '/coach'
+      preLoaderRoute: typeof CoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/meme': {
@@ -120,11 +282,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trade': {
       id: '/trade'
       path: '/trade'
       fullPath: '/trade'
       preLoaderRoute: typeof TradeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watchlist': {
+      id: '/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof WatchlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/': {
+      id: '/learn/'
+      path: '/learn'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/$id': {
+      id: '/learn/$id'
+      path: '/learn/$id'
+      fullPath: '/learn/$id'
+      preLoaderRoute: typeof LearnIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/markets/': {
@@ -146,10 +357,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChallengesRoute: ChallengesRoute,
+  CoachRoute: CoachRoute,
   DashboardRoute: DashboardRoute,
+  LeaderboardRoute: LeaderboardRoute,
   MemeRoute: MemeRoute,
+  NewsRoute: NewsRoute,
+  PortfolioRoute: PortfolioRoute,
+  ProfileRoute: ProfileRoute,
+  SettingsRoute: SettingsRoute,
   TradeRoute: TradeRoute,
+  WatchlistRoute: WatchlistRoute,
+  LearnIdRoute: LearnIdRoute,
   MarketsSymbolRoute: MarketsSymbolRoute,
+  LearnIndexRoute: LearnIndexRoute,
   MarketsIndexRoute: MarketsIndexRoute,
 }
 export const routeTree = rootRouteImport
