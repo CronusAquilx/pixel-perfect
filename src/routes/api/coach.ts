@@ -16,7 +16,7 @@ export const Route = createFileRoute("/api/coach")({
       POST: async ({ request }) => {
         const token = request.headers.get("authorization")?.replace("Bearer ", "");
         if (!token) return new Response("Unauthorized", { status: 401 });
-        const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
+        const sb = createClient(process.env['SUPABASE_URL']!, process.env['SUPABASE_PUBLISHABLE_KEY']!, { auth: { persistSession: false, autoRefreshToken: false } });
         const { data: u } = await sb.auth.getUser(token);
         if (!u.user) return new Response("Unauthorized", { status: 401 });
 
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/api/coach")({
         const messages = (body.messages ?? []).slice(-12).filter((m) => typeof m.content === "string" && m.content.length < 4000);
         if (!messages.length) return new Response("Bad request", { status: 400 });
 
-        const key = process.env.LOVABLE_API_KEY;
+        const key = process.env['LOVABLE_API_KEY'];
         if (!key) return new Response("AI not configured", { status: 500 });
         let runId: string | undefined;
         const openai = createOpenAI({
