@@ -21,6 +21,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TradeRouteImport } from './routes/trade'
 import { Route as WatchlistRouteImport } from './routes/watchlist'
+import { Route as ApiCoachRouteImport } from './routes/api/coach'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as LearnIdRouteImport } from './routes/learn.$id'
 import { Route as MarketsIndexRouteImport } from './routes/markets.index'
@@ -86,6 +87,11 @@ const WatchlistRoute = WatchlistRouteImport.update({
   path: '/watchlist',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCoachRoute = ApiCoachRouteImport.update({
+  id: '/api/coach',
+  path: '/api/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
   id: '/learn/',
   path: '/learn/',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/trade': typeof TradeRoute
   '/watchlist': typeof WatchlistRoute
+  '/api/coach': typeof ApiCoachRoute
   '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
   '/learn/': typeof LearnIndexRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/trade': typeof TradeRoute
   '/watchlist': typeof WatchlistRoute
+  '/api/coach': typeof ApiCoachRoute
   '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
   '/learn': typeof LearnIndexRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/trade': typeof TradeRoute
   '/watchlist': typeof WatchlistRoute
+  '/api/coach': typeof ApiCoachRoute
   '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
   '/learn/': typeof LearnIndexRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/trade'
     | '/watchlist'
+    | '/api/coach'
     | '/learn/$id'
     | '/markets/$symbol'
     | '/learn/'
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/trade'
     | '/watchlist'
+    | '/api/coach'
     | '/learn/$id'
     | '/markets/$symbol'
     | '/learn'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/trade'
     | '/watchlist'
+    | '/api/coach'
     | '/learn/$id'
     | '/markets/$symbol'
     | '/learn/'
@@ -232,6 +244,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   TradeRoute: typeof TradeRoute
   WatchlistRoute: typeof WatchlistRoute
+  ApiCoachRoute: typeof ApiCoachRoute
   LearnIdRoute: typeof LearnIdRoute
   MarketsSymbolRoute: typeof MarketsSymbolRoute
   LearnIndexRoute: typeof LearnIndexRoute
@@ -324,6 +337,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WatchlistRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/coach': {
+      id: '/api/coach'
+      path: '/api/coach'
+      fullPath: '/api/coach'
+      preLoaderRoute: typeof ApiCoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/': {
       id: '/learn/'
       path: '/learn'
@@ -368,6 +388,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   TradeRoute: TradeRoute,
   WatchlistRoute: WatchlistRoute,
+  ApiCoachRoute: ApiCoachRoute,
   LearnIdRoute: LearnIdRoute,
   MarketsSymbolRoute: MarketsSymbolRoute,
   LearnIndexRoute: LearnIndexRoute,
