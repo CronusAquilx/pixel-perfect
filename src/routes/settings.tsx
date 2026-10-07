@@ -9,6 +9,7 @@ import { useStore, type Mode } from "@/lib/store";
 import { seo } from "@/lib/seo";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/settings")({
   head: () => seo("Settings", "Theme, notifications, simulation mode and reset."),
@@ -37,6 +38,7 @@ function Settings() {
         <Row title="Username"><div className="flex gap-2"><Input value={name} onChange={(e) => setName(e.target.value)} className="h-8 w-44" /><Button size="sm" variant="outline" onClick={() => { s.set({ username: name.trim() || s.username }); toast("Username saved"); }}>Save</Button></div></Row>
         <Row title="Light mode" desc="Dark is the default."><Switch checked={s.theme === "light"} onCheckedChange={(v) => s.set({ theme: v ? "light" : "dark" })} /></Row>
         <Row title="Notifications" desc="Show unread dot for new activity."><Switch checked={s.notifications} onCheckedChange={(v) => s.set({ notifications: v })} /></Row>
+        <Row title="Sign out" desc="Your simulation is saved to your account."><Button size="sm" variant="outline" onClick={() => supabase.auth.signOut()}>Sign out</Button></Row>
         <Row title="Data source" desc="Currently simulated market data. Live feeds can be connected later."><span className="label-caps">Simulated</span></Row>
       </Panel>
       <Panel title="Simulation mode">

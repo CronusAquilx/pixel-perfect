@@ -8,4 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
-- Persisted client state lives in a zustand store (src/lib/store.ts); market data goes through the provider interface in src/lib/market.ts so a real API can replace the mock.
+- Simulator state lives in a zustand store (src/lib/store.ts) and is mirrored per user to the user_state table via src/lib/sync.ts; profiles holds public leaderboard stats exposed only through the get_leaderboard() function.
+- Market data goes through the provider interface in src/lib/market.ts so a real API can replace the mock.
+- AI coach streams from the /api/coach server route, which verifies the bearer token before calling the AI gateway.
