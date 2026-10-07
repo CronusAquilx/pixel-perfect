@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as MarketsRouteImport } from './routes/markets'
+import { Route as MemeRouteImport } from './routes/meme'
+import { Route as TradeRouteImport } from './routes/trade'
+import { Route as MarketsIndexRouteImport } from './routes/markets.index'
+import { Route as MarketsSymbolRouteImport } from './routes/markets.$symbol'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +26,75 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MarketsRoute = MarketsRouteImport.update({
-  id: '/markets',
-  path: '/markets',
+const MemeRoute = MemeRouteImport.update({
+  id: '/meme',
+  path: '/meme',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TradeRoute = TradeRouteImport.update({
+  id: '/trade',
+  path: '/trade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketsIndexRoute = MarketsIndexRouteImport.update({
+  id: '/markets/',
+  path: '/markets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketsSymbolRoute = MarketsSymbolRouteImport.update({
+  id: '/markets/$symbol',
+  path: '/markets/$symbol',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
-  '/markets': typeof MarketsRoute
+  '/meme': typeof MemeRoute
+  '/trade': typeof TradeRoute
+  '/markets/$symbol': typeof MarketsSymbolRoute
+  '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
-  '/markets': typeof MarketsRoute
+  '/meme': typeof MemeRoute
+  '/trade': typeof TradeRoute
+  '/markets/$symbol': typeof MarketsSymbolRoute
+  '/markets': typeof MarketsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
-  '/markets': typeof MarketsRoute
+  '/meme': typeof MemeRoute
+  '/trade': typeof TradeRoute
+  '/markets/$symbol': typeof MarketsSymbolRoute
+  '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/markets'
+  fullPaths:
+    '/' | '/dashboard' | '/meme' | '/trade' | '/markets/$symbol' | '/markets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/markets'
-  id: '__root__' | '/' | '/dashboard' | '/markets'
+  to: '/' | '/dashboard' | '/meme' | '/trade' | '/markets/$symbol' | '/markets'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/meme'
+    | '/trade'
+    | '/markets/$symbol'
+    | '/markets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
-  MarketsRoute: typeof MarketsRoute
+  MemeRoute: typeof MemeRoute
+  TradeRoute: typeof TradeRoute
+  MarketsSymbolRoute: typeof MarketsSymbolRoute
+  MarketsIndexRoute: typeof MarketsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +113,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/markets': {
-      id: '/markets'
+    '/meme': {
+      id: '/meme'
+      path: '/meme'
+      fullPath: '/meme'
+      preLoaderRoute: typeof MemeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trade': {
+      id: '/trade'
+      path: '/trade'
+      fullPath: '/trade'
+      preLoaderRoute: typeof TradeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markets/': {
+      id: '/markets/'
       path: '/markets'
-      fullPath: '/markets'
-      preLoaderRoute: typeof MarketsRouteImport
+      fullPath: '/markets/'
+      preLoaderRoute: typeof MarketsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markets/$symbol': {
+      id: '/markets/$symbol'
+      path: '/markets/$symbol'
+      fullPath: '/markets/$symbol'
+      preLoaderRoute: typeof MarketsSymbolRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +147,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
-  MarketsRoute: MarketsRoute,
+  MemeRoute: MemeRoute,
+  TradeRoute: TradeRoute,
+  MarketsSymbolRoute: MarketsSymbolRoute,
+  MarketsIndexRoute: MarketsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
