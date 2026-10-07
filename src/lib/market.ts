@@ -119,7 +119,7 @@ export function fmtUSD(n: number, opts: { compact?: boolean; sign?: boolean } = 
   const sign = opts.sign && n > 0 ? "+" : "";
   if (opts.compact) return sign + new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 2 }).format(n);
   const abs = Math.abs(n);
-  const digits = abs === 0 ? 2 : abs < 0.001 ? 8 : abs < 1 ? 4 : 2;
+  const digits = abs === 0 || opts.sign ? 2 : abs < 0.001 ? 8 : abs < 1 ? 4 : 2;
   return sign + new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n);
 }
 export const fmtPct = (n: number) => `${n > 0 ? "+" : ""}${n.toFixed(2)}%`;
