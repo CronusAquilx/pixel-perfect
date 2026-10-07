@@ -12,7 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as MemeRouteImport } from './routes/meme'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as TradeRouteImport } from './routes/trade'
+import { Route as WatchlistRouteImport } from './routes/watchlist'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as LearnIdRouteImport } from './routes/learn.$id'
 import { Route as MarketsIndexRouteImport } from './routes/markets.index'
 import { Route as MarketsSymbolRouteImport } from './routes/markets.$symbol'
 
@@ -31,9 +35,29 @@ const MemeRoute = MemeRouteImport.update({
   path: '/meme',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TradeRoute = TradeRouteImport.update({
   id: '/trade',
   path: '/trade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchlistRoute = WatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/learn/',
+  path: '/learn/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIdRoute = LearnIdRouteImport.update({
+  id: '/learn/$id',
+  path: '/learn/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarketsIndexRoute = MarketsIndexRouteImport.update({
@@ -51,16 +75,24 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/meme': typeof MemeRoute
+  '/portfolio': typeof PortfolioRoute
   '/trade': typeof TradeRoute
+  '/watchlist': typeof WatchlistRoute
+  '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
+  '/learn/': typeof LearnIndexRoute
   '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/meme': typeof MemeRoute
+  '/portfolio': typeof PortfolioRoute
   '/trade': typeof TradeRoute
+  '/watchlist': typeof WatchlistRoute
+  '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
+  '/learn': typeof LearnIndexRoute
   '/markets': typeof MarketsIndexRoute
 }
 export interface FileRoutesById {
@@ -68,23 +100,50 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/meme': typeof MemeRoute
+  '/portfolio': typeof PortfolioRoute
   '/trade': typeof TradeRoute
+  '/watchlist': typeof WatchlistRoute
+  '/learn/$id': typeof LearnIdRoute
   '/markets/$symbol': typeof MarketsSymbolRoute
+  '/learn/': typeof LearnIndexRoute
   '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/dashboard' | '/meme' | '/trade' | '/markets/$symbol' | '/markets/'
+    | '/'
+    | '/dashboard'
+    | '/meme'
+    | '/portfolio'
+    | '/trade'
+    | '/watchlist'
+    | '/learn/$id'
+    | '/markets/$symbol'
+    | '/learn/'
+    | '/markets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/meme' | '/trade' | '/markets/$symbol' | '/markets'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/meme'
+    | '/portfolio'
+    | '/trade'
+    | '/watchlist'
+    | '/learn/$id'
+    | '/markets/$symbol'
+    | '/learn'
+    | '/markets'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/meme'
+    | '/portfolio'
     | '/trade'
+    | '/watchlist'
+    | '/learn/$id'
     | '/markets/$symbol'
+    | '/learn/'
     | '/markets/'
   fileRoutesById: FileRoutesById
 }
@@ -92,8 +151,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   MemeRoute: typeof MemeRoute
+  PortfolioRoute: typeof PortfolioRoute
   TradeRoute: typeof TradeRoute
+  WatchlistRoute: typeof WatchlistRoute
+  LearnIdRoute: typeof LearnIdRoute
   MarketsSymbolRoute: typeof MarketsSymbolRoute
+  LearnIndexRoute: typeof LearnIndexRoute
   MarketsIndexRoute: typeof MarketsIndexRoute
 }
 
@@ -120,11 +183,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trade': {
       id: '/trade'
       path: '/trade'
       fullPath: '/trade'
       preLoaderRoute: typeof TradeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watchlist': {
+      id: '/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof WatchlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/': {
+      id: '/learn/'
+      path: '/learn'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/$id': {
+      id: '/learn/$id'
+      path: '/learn/$id'
+      fullPath: '/learn/$id'
+      preLoaderRoute: typeof LearnIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/markets/': {
@@ -148,8 +239,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   MemeRoute: MemeRoute,
+  PortfolioRoute: PortfolioRoute,
   TradeRoute: TradeRoute,
+  WatchlistRoute: WatchlistRoute,
+  LearnIdRoute: LearnIdRoute,
   MarketsSymbolRoute: MarketsSymbolRoute,
+  LearnIndexRoute: LearnIndexRoute,
   MarketsIndexRoute: MarketsIndexRoute,
 }
 export const routeTree = rootRouteImport
