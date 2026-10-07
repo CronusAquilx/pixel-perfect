@@ -16,6 +16,9 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        gain: "bg-gain text-primary-foreground font-semibold tracking-wide uppercase hover:bg-gain/90",
+        loss: "bg-loss text-destructive-foreground font-semibold tracking-wide uppercase hover:bg-loss/90",
+        terminal: "border border-input bg-transparent font-semibold tracking-[0.12em] uppercase text-xs hover:bg-accent",
       },
       size: {
         default: "h-9 px-4 py-2",
