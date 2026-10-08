@@ -54,7 +54,8 @@ export function LessonVideoPlayer({ id, title, children }: { id: string; title: 
           onTimeUpdate={(e) => {
             const el = e.currentTarget;
             const time = el.currentTime;
-            const index = Math.max(0, video.chapters.findIndex((c) => time >= c.start && time < c.end));
+            const match = video.chapters.findIndex((c) => time >= c.start && time < c.end);
+            const index = match >= 0 ? match : video.chapters.length - 1;
             setCurrent(index);
             if (follow && !el.seeking && !el.paused) {
               const stop = video.chapters.findIndex((c, i) => c.practice && !visited.current.has(i) && lastTime.current < c.end && time >= c.end);
