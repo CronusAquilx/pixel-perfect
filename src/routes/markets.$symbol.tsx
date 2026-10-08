@@ -17,7 +17,7 @@ export const Route = createFileRoute("/markets/$symbol")({
   head: ({ loaderData }) => {
     const t = loaderData ? `${loaderData.symbol} · ${loaderData.name} — MARKETLAB` : "Asset not found — MARKETLAB";
     const d = loaderData ? `Simulated price, chart and virtual trading for ${loaderData.name}.` : "Unknown asset.";
-    return { meta: [{ title: t }, { name: "description", content: d }, { property: "og:title", content: t }, { property: "og:description", content: d }] };
+    return { meta: [{ title: t }, { name: "description", content: d }, { property: "og:title", content: t }, { property: "og:description", content: d }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] };
   },
   notFoundComponent: () => <p className="p-10 text-center text-muted-foreground">Asset not found. <Link to="/markets" className="underline">Back to markets</Link></p>,
   component: AssetPage,

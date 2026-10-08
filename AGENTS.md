@@ -11,3 +11,4 @@
 - Simulator state lives in a zustand store (src/lib/store.ts) and is mirrored per user to the user_state table via src/lib/sync.ts; profiles holds public leaderboard stats exposed only through the get_leaderboard() function.
 - Market data goes through the provider interface in src/lib/market.ts so a real API can replace the mock.
 - AI coach streams from the /api/coach server route, which verifies the bearer token before calling the AI gateway.
+- Lesson videos use CDN asset pointers and a browser-safe chapter manifest; playback and practice pauses stay local to the lesson so watching cannot place trades or award quiz XP.
