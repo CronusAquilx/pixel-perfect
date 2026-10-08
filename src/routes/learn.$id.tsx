@@ -11,6 +11,7 @@ import { useStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { LessonVideoPlayer } from "@/components/ml/LessonVideo";
 import { seo } from "@/lib/seo";
+import { LessonPractice } from "@/components/ml/LessonPractice";
 
 export const Route = createFileRoute("/learn/$id")({
   loader: ({ params }) => {
@@ -46,7 +47,7 @@ function LessonContent({ l }: { l: (typeof LESSONS)[number] }) {
       <div className="flex gap-2"><Tag>{l.level}</Tag><Tag tone="gain">+{l.xp} XP</Tag>{lessonsDone.includes(l.id) && <Tag tone="gain">COMPLETED</Tag>}</div>
       <h1 className="mt-2 text-3xl font-semibold">{l.title}</h1>
       <div className="mt-4 space-y-3 text-muted-foreground">{l.body.map((b) => <p key={b}>{b}</p>)}</div>
-      <LessonVideoPlayer key={l.id} id={l.id} title={l.title}><WidgetView w={l.widget} /></LessonVideoPlayer>
+      <LessonVideoPlayer key={l.id} id={l.id} title={l.title}>{l.id !== "candles" && <WidgetView w={l.widget} />}<LessonPractice id={l.id} /></LessonVideoPlayer>
       <Panel title="Mini quiz" className="mt-4">
         <div className="space-y-5">
           {l.quiz.map((q, qi) => (
@@ -77,6 +78,9 @@ function LessonContent({ l }: { l: (typeof LESSONS)[number] }) {
 function WidgetView({ w }: { w: Widget }) {
   const [a, setA] = useState(10);
   const [b, setB] = useState(7);
+  const [riskPct, setRiskPct] = useState(1);
+  const [stopPct, setStopPct] = useState(5);
+  const [assets, setAssets] = useState(5);
   if (w === "compound") {
     const fv = 10000 * Math.pow(1 + b / 100, a);
     return <div className="space-y-4 text-sm">
@@ -86,12 +90,14 @@ function WidgetView({ w }: { w: Widget }) {
     </div>;
   }
   if (w === "position") {
-    const acct = 10000, risk = acct * (b / 100) / 3.5, stop = a / 2;
-    const size = risk / (100 * stop / 100);
+    const risk = 10000 * riskPct / 100;
+    const size = risk / stopPct;
     return <div className="space-y-4 text-sm">
-      <p>Account $10,000. Risking <b>{(b / 3.5).toFixed(1)}%</b> with a stop <b>{stop}%</b> below a $100 entry → buy <span className="num text-gain">{size.toFixed(1)} shares</span> (max loss {fmtUSD(risk)}).</p>
-      <label className="block">Risk per trade<Slider value={[b]} min={1} max={14} onValueChange={(v) => setB(v[0])} className="mt-2" /></label>
-      <label className="block">Stop distance<Slider value={[a]} min={1} max={20} onValueChange={(v) => setA(v[0])} className="mt-2" /></label>
+      <p>Account $10,000. Risking <b>{riskPct}%</b> with a stop <b>{stopPct}%</b> below a $100 entry → calculated size <span className="num text-gain">{size.toFixed(1)} shares</span> (planned loss {fmtUSD(risk)}).</p>
+      {size * 100 > 10000 && <p className="text-warn">This size costs more than your account. Reduce the size; don’t assume borrowed money.</p>}
+      <label className="block">Risk per trade: {riskPct}%<Slider value={[riskPct]} min={0.5} max={4} step={0.5} onValueChange={(v) => setRiskPct(v[0])} className="mt-2" /></label>
+      <label className="block">Stop distance: {stopPct}%<Slider value={[stopPct]} min={1} max={10} onValueChange={(v) => setStopPct(v[0])} className="mt-2" /></label>
+      <p className="text-xs text-muted-foreground">Planned loss = account × risk %. Shares = planned loss ÷ loss per share. Fees and price gaps can increase actual losses.</p>
     </div>;
   }
   if (w === "volatility") {
@@ -108,10 +114,11 @@ function WidgetView({ w }: { w: Widget }) {
     </div>;
   }
   if (w === "diversify") {
-    const n = Math.max(1, Math.round(a / 2));
+    const n = assets;
     return <div className="space-y-3 text-sm">
       <p>Holding <b>{n}</b> equal-weight assets, if one goes to zero you lose <span className="num text-loss">{(100 / n).toFixed(1)}%</span> of the portfolio.</p>
-      <label className="block">Number of assets<Slider value={[a]} min={2} max={40} onValueChange={(v) => setA(v[0])} className="mt-2" /></label>
+      <label className="block">Number of assets: {assets}<Slider value={[assets]} min={1} max={20} onValueChange={(v) => setAssets(v[0])} className="mt-2" /></label>
+      <p className="text-xs text-muted-foreground">Assumes the other assets stay unchanged. Holdings in the same industry can fall together.</p>
     </div>;
   }
   return <div><p className="mb-2 text-sm text-muted-foreground">Live simulated SPY chart with a 10-period moving average (dashed). Switch timeframes to see how trends look at different scales.</p><PriceChart symbol="SPY" height={220} showMA /></div>;
